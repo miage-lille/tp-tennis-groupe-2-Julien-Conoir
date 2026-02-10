@@ -1,0 +1,24 @@
+{
+  "name": "tennis-kata-ts",
+  "version": "0.0.1",
+  "description": "Tennis kata in Typescript",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest --watchAll",
+    "tsc": "tsc",
+    "start": "ts-node index.ts"
+  },
+  "author": "Quentin Burg",
+  "license": "ISC",
+  "devDependencies": {
+    "fast-check": "^4.5.3",
+    "jest": "^30.2.0",
+    "prettier": "^3.8.1",
+    "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "effect": "^3.19.15"
+  }
+}
