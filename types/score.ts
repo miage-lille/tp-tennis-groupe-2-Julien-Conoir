@@ -73,4 +73,19 @@ export const game = (winner: Player): Game => ({
   player: winner,
 });
 
+export const stringToPoint = (str: string): Point => {
+  switch (str) {
+    case 'LOVE':
+      return 0;
+    case 'FIFTEEN':
+      return 15;
+    case 'THIRTY':
+      return 30;
+    default:
+      throw new Error(`Invalid point string: ${str}`);
+  }
+};
+
+export const thirty = (): Point => 30;
+
 export type Score = Points | Forty | Deuce | Advantage | Game;
