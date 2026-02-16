@@ -86,7 +86,23 @@ export const scoreWhenForty = (
 // Tip: You can use pipe function from Effect to improve readability.
 // See scoreWhenForty function above.
 export const scoreWhenPoint = (current: PointsData, winner: Player): Score => {
-  throw new Error('not implemented');
+  const winnerPoint = current[winner];
+  const otherPlayerKey = winner === 'PLAYER_ONE' ? 'PLAYER_TWO' : 'PLAYER_ONE';
+  const otherPoint = current[otherPlayerKey];
+  
+  return pipe(
+    incrementPoint(winnerPoint),
+    Option.match({
+      onNone: () => forty(winner, otherPoint),
+      onSome: newPoint => ({
+        kind: 'POINTS' as const,
+        pointsData: {
+          ...current,
+          [winner]: newPoint
+        }
+      })
+    })
+  );
 };
 
 // Exercice 3

@@ -1,7 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
-import { otherPlayer, playerToString, scoreWhenDeuce, scoreWhenAdvantage, scoreWhenForty } from '..';
+import { otherPlayer, playerToString, scoreWhenDeuce, scoreWhenAdvantage, scoreWhenForty, scoreWhenPoint } from '..';
 import { stringToPlayer } from '../types/player';
-import { advantage, deuce, game, forty, stringToPoint, thirty } from '../types/score';
+import { advantage, deuce, game, forty, stringToPoint, thirty, points } from '../types/score';
 
 describe('Tests for tooling functions', () => {
   test('Given playerOne when playerToString', () => {
@@ -79,15 +79,26 @@ describe('Tests for transition functions', () => {
   });
 
   // -------------------------TESTS POINTS-------------------------- //
-  // test('Given players at 0 or 15 points score kind is still POINTS', () => {
-  //   throw new Error(
-  //     'Your turn to code the preconditions, expected result and test.'
-  //   );
-  // });
+  test('Given players at 0 or 15 points score kind is still POINTS', () => {
+    ['PLAYER_ONE', 'PLAYER_TWO'].forEach((winner) => {
+      const pointsData = {
+        PLAYER_ONE: 0,
+        PLAYER_TWO: 15,
+      };
+      const score = scoreWhenPoint(pointsData, stringToPlayer(winner));
+      expect(score.kind).toStrictEqual('POINTS');
+    })
+  });
 
-  // test('Given one player at 30 and win, score kind is forty', () => {
-  //   throw new Error(
-  //     'Your turn to code the preconditions, expected result and test.'
-  //   );
-  // });
+  test('Given one player at 30 and win, score is forty', () => {
+    ['PLAYER_ONE', 'PLAYER_TWO'].forEach((winner) => {
+      const pointsData = {
+        PLAYER_ONE: winner === 'PLAYER_ONE' ? 30 : 0,
+        PLAYER_TWO: winner === 'PLAYER_TWO' ? 30 : 0,
+      };
+      const score = scoreWhenPoint(pointsData, stringToPlayer(winner));
+      const scoreExpected = forty(stringToPlayer(winner), 0);
+      expect(score).toStrictEqual(scoreExpected);
+    })
+  });
 });
